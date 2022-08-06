@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { FoodService } from 'src/app/services/food.service';
 import { Food } from 'src/app/shared/models/Food';
@@ -18,7 +19,10 @@ export class FoodPageComponent implements OnInit {
     private router: Router
   ) {
     activatedRoute.params.subscribe((params) => {
-      if (params.foodId) this.food = foodService.getFoodById(params.foodId);
+      if (params.foodId)
+        foodService
+          .getFoodById(params.foodId)
+          .subscribe((serverFood) => (this.food = serverFood));
     });
   }
 
