@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { timeout } from 'rxjs';
+import { InputContainerComponent } from './components/partials/input-container/input-container.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { timeout } from 'rxjs';
     TitleComponent,
     NotFoundComponent,
     LoginPageComponent,
+    InputContainerComponent,
   ],
   imports: [
     BrowserModule,
