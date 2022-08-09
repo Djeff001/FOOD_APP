@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { sample_users } from "../data";
 import asyncHandler from "express-async-handler";
 import { User, UserModel } from "../models/user.model";
+import bcrypt from "bcryptjs";
 
 const router = Router();
 
@@ -33,7 +34,32 @@ router.post(
   })
 );
 
-const generateTokenResponse = (user: User) => {
+router.post(
+  "/register",
+  asyncHandler(async (req, res) => {
+    const { name, email, password, address } = req.body;
+
+    const user = await UserModel.findOne({ email });
+    if (user) {
+      res.status(400).send("User is already exist, please login!");
+      return;
+    }
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    const newUser: User = {
+      id: "",
+      name,
+      email: email.toLowerCase(),
+      password: encryptedPassword,
+      address,
+      isAdmin: false,
+    };
+    // id will be generated
+    const dbUser = UserModel.create(newUser);
+    res.send(generateTokenResponse(dbUser));
+  })
+);
+
+const generateTokenResponse = (user: any) => {
   const token = jwt.sign(
     {
       email: user.email,

@@ -7,10 +7,11 @@
   }
 
   .details{
-    width: 28rem;
+    width: 25rem;
   }
 
-  .register{
+
+  .login{
     display: flex;
     justify-content: center;
     align-items: center;
