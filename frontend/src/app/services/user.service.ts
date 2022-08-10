@@ -20,6 +20,10 @@ export class UserService {
     this.userObservable = this.userSubject.asObservable();
   }
 
+  get currentUser(): User {
+    return this.userSubject.value;
+  }
+
   //pipe stay return a type of Observable when we want toreturn an erroresponse
   login(userLogin: IUserLogin): Observable<User> {
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(
