@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   ORDER_CREATE_URL,
   ORDER_NEW_FOR_CURRENT_USER_URL,
+  ORDER_PAY_URL,
 } from '../shared/constants/urls';
 import { Order } from '../shared/models/Order';
 
@@ -19,5 +20,9 @@ export class OrderService {
 
   getNewOrderForCurrentUser(): Observable<Order> {
     return this.http.get<Order>(ORDER_NEW_FOR_CURRENT_USER_URL);
+  }
+
+  pay(order: Order): Observable<string> {
+    return this.http.post<string>(ORDER_PAY_URL, order);
   }
 }
