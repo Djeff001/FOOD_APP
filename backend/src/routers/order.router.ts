@@ -51,6 +51,14 @@ router.post(
   })
 );
 
+router.get(
+  "/track/:orderId",
+  asyncHandler(async (req, res) => {
+    const order = await OrderModel.findById(req.params.orderId);
+    res.send(order);
+  })
+);
+
 export default router;
 function getNewOrderForCurrentUser(req: any) {
   return OrderModel.findOne({
