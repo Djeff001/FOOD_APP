@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
-
+import path from "path";
 import { sample_foods, sample_tags, sample_users } from "./data";
 import jwt from "jsonwebtoken";
 import foodRouter from "./routers/food.router";
@@ -24,7 +24,12 @@ app.use("/api/foods", foodRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
 
-const port = 5000;
+app.use(express.static("public"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+const port = process.env.PORT || 5000; //HAIROKU PORT, 5000 for local
 app.listen(port, () => {
   console.log("Website served on http://localhost:" + port);
 });
